@@ -1,3 +1,5 @@
+Given a matrix mat[][] of size M*N. Traverse and print the matrix in spiral form.
+
 import java.util.*;
 import java.lang.*;
 import java.io.*;
