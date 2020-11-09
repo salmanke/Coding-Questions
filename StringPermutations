@@ -1,0 +1,39 @@
+PERMUTATIONS OF A STRING (LEXI.... ORDER)
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class GFG {
+    private static ArrayList<String> res;
+    
+	public static void main (String[] args) {
+		//code
+	    Scanner scan = new Scanner(System.in);
+		int t = Integer.valueOf(scan.nextLine().trim());
+		while(t>0){
+		    t--;
+			String w = scan.nextLine().trim();
+			res = new ArrayList<>();
+			permutations(w,0,w.length());
+			Collections.sort(res);
+			System.out.println(res.toString().replace("[","").replace("]","").replace(",",""));
+		}
+	}
+	static void permutations(String w, int start, int end){
+		if(start==end-1) res.add(w);
+		for(int i=start;i<end;i++){
+			w=swapString(w,start,i);
+			permutations(w,start+1,end);
+			w=swapString(w,start,i);
+		}
+	}
+
+	static String swapString(String w, int start, int to){
+		char[] ch = w.toCharArray();
+		char temp = ch[start];
+		ch[start]=ch[to];
+		ch[to]=temp;
+		return String.valueOf(ch);
+	}
+}
