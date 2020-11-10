@@ -1,0 +1,27 @@
+class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> paths=new ArrayList();
+        String s="";
+        if(root==null)
+        	return paths;
+        s+=Integer.toString(root.data);
+        if(root.left==null&&root.right==null)
+        	paths.add(s);
+        else if(root.left!=null)
+        	helper(root.left,s,paths);
+        else if(root.right!=null)
+        	helper(root.right,s,paths);
+        return paths;
+    }
+    public static void helper(TreeNode root,String s,List<Integer> paths){
+    	s+=Integer.toString(root.data);
+    	if(root.left==null&&root.right==null){
+    		paths.add(s);
+    		return;
+    	}
+    	if(root.left!=null)
+    		helper(root.left,s,paths);
+    	if(root.right!=null)
+    		helper(root.right,s,paths)
+    } 
+}
