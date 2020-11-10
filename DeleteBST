@@ -1,0 +1,33 @@
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+    	if(root==null)
+    		return root;
+    	if(root.data>key)
+    		root.left=deleteNode(root.left,key);
+    	else if(root.data<key)
+    		root.right=deleteNode(root.right,key);
+    	else{
+    		//if target node is a leaf node
+    		if(root.left==null&&root.right==null)
+    			return null;
+    		//if target node has 1 child
+    		else if((root.left==null&&root.right!=null)||(root.left!=null&&root.right==null))
+    			return root.left!=null&&root.right==null?root.left:root.right;
+    		//if target has both nodes
+    		else{
+    			TreeNode riMin=findMin(root.right);
+    			deleteNode(root,riMin.data);
+    			root.data=riMin.data;
+    			return root;
+    		}
+    	}
+    	return root;
+    }
+    public static TreeNode findMin(TreeNode root){
+    	if(root==null)
+    		return root;
+    	if(root.left==null)
+    		return root;
+    	findMin(root.left);
+    }
+ }
