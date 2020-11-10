@@ -1,0 +1,19 @@
+class Solution {
+    public int compress(char[] chars) {
+    	int i=0,n=chars.length,inex=0;
+    	while(i<n){
+    		int j=i;
+    		while(chars[j]==chars[j+1]&&j<n){
+    			j++;
+    		}
+    		chars[index++]=chars[i];
+    		if(j-i>1){
+    			String count=j-i+"";
+    			for(char c:count.toCharArray())
+    				chars[index++]=c;
+    		}
+    		i=j;
+    	}
+    	return index;
+    }
+}
