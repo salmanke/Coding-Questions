@@ -1,0 +1,22 @@
+class Solution {
+    public String convert(String s, int rows) {
+    	String res="";
+    	int factor=1,row=0;
+    	HashMap<Integer,String> map=new HashMap<>();
+    	for(int i=0;i<s.length();i++){
+    		if(map.containsKey(row))
+    			map.put(row,map.get(row)+String.valueOf(s.charAt(i)));
+    		else
+    			map.put(row,String.valueOf(s.charAt(i)));
+    		if(row==rows&&factor==1)
+    			factor=-1;
+    		if(row==1&&factor==1)
+    			factor=1;
+    		row+=factor;
+    	}
+    	for(int i=0;i<rows;i++){
+    		res+=map.get(i+1);
+    	}
+    	return res;
+    }
+}
