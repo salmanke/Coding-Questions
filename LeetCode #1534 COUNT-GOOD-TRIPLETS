@@ -1,0 +1,62 @@
+LeetCode #1534 COUNT-GOOD-TRIPLETS
+
+public int countGoodTriplets(int[] arr, int a, int b, int c) {
+
+        if (arr == null || arr.length < 3) return 0;
+
+        // generate all triplets
+        List<Triplet> triplets = new ArrayList<>();
+
+        for (int i = 0; i < arr.length - 2; i++) {
+            int first = arr[i];
+            for (int j = i + 1; j < arr.length - 1; j++) {
+                int second = arr[j];
+                if (Math.abs(first - second) <= a) {
+                    Triplet triplet = new Triplet();
+                    triplet.first = first;
+                    triplet.second = second;
+                    triplet.firstIndex = i;
+                    triplet.secondIndex = j;
+                    triplets.add(triplet);
+                }
+            }
+        }
+
+        List<Triplet> goodTriplets = new ArrayList<>();
+        for (Triplet triplet : triplets) {
+            for (int k = triplet.secondIndex + 1; k < arr.length; k++) {
+                int third = arr[k];
+                triplet.third = third;
+                triplet.thirdIndex = k;
+                if (triplet.isGoodTriplet(a, b, c)) {
+                    try {
+                        Triplet good = triplet.clone();
+                        goodTriplets.add(good);
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return goodTriplets.size();
+    }
+
+    static class Triplet implements Cloneable {
+        int first;
+        int firstIndex;
+        int second;
+        int secondIndex;
+        int third;
+        int thirdIndex;
+
+        boolean isGoodTriplet(int a, int b, int c) {
+            return Math.abs(first - second) <= a
+                    && Math.abs(second - third) <= b
+                    && Math.abs(first - third) <= c;
+        }
+
+        @Override
+        protected Triplet clone() throws CloneNotSupportedException {
+            return (Triplet) super.clone();
+        }
+    }
